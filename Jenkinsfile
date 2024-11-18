@@ -7,13 +7,13 @@ pipeline {
     }
 
     environment {
-            APP_NAME = "cicd-pipeline"
-            RELEASE = "1.0.0"
-            DOCKER_USER = "aminearguig" // dockerhub username
-            DOCKER_PASS = 'dockerhub'  // dockerhub credentials created in jenkins
-            IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-            IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-            //JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
+        APP_NAME = "cicd-pipeline"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "aminearguig" // dockerhub username
+        DOCKER_PASS = 'dockerhub'  // dockerhub credentials created in jenkins
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        //JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
     }
 
     stages{
@@ -67,6 +67,13 @@ pipeline {
                         docker_image.push("${IMAGE_TAG}")
                         docker_image.push('latest')
                     }
+                }
+            }
+        }
+        stage("Trivy Scan") {
+            steps {
+                script {
+                sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
                 }
             }
         }
