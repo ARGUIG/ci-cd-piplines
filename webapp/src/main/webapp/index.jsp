@@ -16,6 +16,9 @@
       align-items: center;
       height: 100vh;
     }
+    form{
+      margin-top: 170px;
+    }
 
     .container {
       background: #ffffff;
@@ -90,9 +93,9 @@
   </style>
 </head>
 <body>
+  <h1>New User Register for DevOps Project</h1>
   <form action="registerAction.jsp" method="post">
     <div class="container">
-      <h1>New User Register for DevOps Project</h1>
       <p>Please fill in this form to create an account.</p>
       <hr>
       
@@ -121,8 +124,8 @@
     </div>
     <div class="container">
       <h1>Thank You</h1>
-      <p>test pipline</p>
       <p>Happy Learning. See You Again.</p>
+      <p>test pipline</p>
     </div>
   </form>
 </body>
